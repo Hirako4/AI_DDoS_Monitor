@@ -1,0 +1,54 @@
+﻿<Window x:Class="AI_DDoS_Monitor.Windows.AddDataWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="Добавить данные" Height="622" Width="549"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="pack://application:,,,/MaterialDesignFonts;component/Roboto/#Roboto">
+    <TabControl Margin="10" Style="{StaticResource MaterialDesignTabControl}">
+        <TabItem Header="Добавить датасет">
+            <StackPanel Margin="10">
+                <Label Content="Имя датасета:" />
+                <TextBox Name="DatasetName" Style="{StaticResource MaterialDesignTextBox}" />
+                <Label Content="Размер (МБ):" />
+                <TextBox Name="SizeMb" Style="{StaticResource MaterialDesignTextBox}" />
+                <Label Content="Теги (через запятую):" />
+                <TextBox Name="Tags" Style="{StaticResource MaterialDesignTextBox}" />
+                <Button Style="{StaticResource MaterialDesignRaisedButton}" Content="Добавить датасет" Click="AddDatasetBtn_Click" Margin="0,10" />
+            </StackPanel>
+        </TabItem>
+        <TabItem Header="Добавить эксперимент">
+            <StackPanel Margin="10">
+                <Label Content="Имя эксперимента:" />
+                <TextBox Name="ExperimentName" Style="{StaticResource MaterialDesignTextBox}" />
+                <Label Content="Тип атаки:" />
+                <ComboBox Name="AttackType" Style="{StaticResource MaterialDesignComboBox}">
+                    <ComboBoxItem Content="syn_flood" />
+                    <ComboBoxItem Content="udp_flood" />
+                    <ComboBoxItem Content="http_flood" />
+                    <ComboBoxItem Content="slowloris" />
+                </ComboBox>
+                <Button Style="{StaticResource MaterialDesignRaisedButton}" Content="Добавить эксперимент" Click="AddExperimentBtn_Click" Margin="0,10" />
+            </StackPanel>
+        </TabItem>
+        <TabItem Header="Добавить запуск">
+            <StackPanel Margin="10">
+                <Label Content="ID эксперимента:" />
+                <TextBox Name="RunExperimentId" Style="{StaticResource MaterialDesignTextBox}" />
+                <Label Content="ID датасета:" />
+                <TextBox Name="RunDatasetId" Style="{StaticResource MaterialDesignTextBox}" />
+                <Label Content="Статус:" />
+                <ComboBox Name="RunStatus" Style="{StaticResource MaterialDesignComboBox}">
+                    <ComboBoxItem Content="pending" />
+                    <ComboBoxItem Content="running" />
+                    <ComboBoxItem Content="completed" />
+                    <ComboBoxItem Content="failed" />
+                </ComboBox>
+                <Label Content="Точность (0-1):" />
+                <TextBox Name="RunAccuracy" Style="{StaticResource MaterialDesignTextBox}" />
+                <Button Style="{StaticResource MaterialDesignRaisedButton}" Content="Добавить запуск" Click="AddRunBtn_Click" Margin="0,10" />
+            </StackPanel>
+        </TabItem>
+    </TabControl>
+</Window>

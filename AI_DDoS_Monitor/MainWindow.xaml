@@ -1,0 +1,20 @@
+﻿<Window x:Class="AI_DDoS_Monitor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="AI DDoS Monitor" Height="400" Width="500"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="pack://application:,,,/MaterialDesignFonts;component/Roboto/#Roboto"
+        WindowStartupLocation="CenterScreen">
+    <Grid Margin="20">
+        <StackPanel>
+            <TextBlock Text="AI DDoS Monitor" FontSize="24" HorizontalAlignment="Center" Margin="0,0,0,30" />
+            <Button Style="{StaticResource MaterialDesignRaisedButton}" Content="Создать схему и таблицы" Click="CreateSchemaBtn_Click" Margin="5" />
+            <Button Style="{StaticResource MaterialDesignRaisedButton}" Content="Добавить данные" Click="AddDataBtn_Click" Margin="5" />
+            <Button Style="{StaticResource MaterialDesignRaisedButton}" Content="Показать данные" Click="ShowDataBtn_Click" Margin="5" />
+            <Button Style="{StaticResource MaterialDesignRaisedButton}" Content="Проверить подключение" Click="TestConnectionBtn_Click" Margin="5" />
+            <Button Style="{StaticResource MaterialDesignRaisedButton}" Content="Переключить тему" Click="ToggleThemeBtn_Click" Margin="5" />
+        </StackPanel>
+    </Grid>
+</Window>
