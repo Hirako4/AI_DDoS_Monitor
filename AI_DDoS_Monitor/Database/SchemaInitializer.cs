@@ -1,5 +1,6 @@
 ﻿using Npgsql;
 using System;
+using AI_DDoS_Monitor.Database;
 
 namespace AI_DDoS_Monitor.Database
 {
@@ -13,10 +14,21 @@ namespace AI_DDoS_Monitor.Database
             var sql = @"
                 CREATE SCHEMA IF NOT EXISTS ai_ddos;
 
-                CREATE TYPE ai_ddos.attack_type AS ENUM ('syn_flood', 'udp_flood', 'http_flood', 'slowloris');
-                CREATE TYPE ai_ddos.status AS ENUM ('pending', 'running', 'completed', 'failed');
+                DO $$
+                BEGIN
+                    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'attack_type') THEN
+                        CREATE TYPE ai_ddos.attack_type AS ENUM ('syn_flood', 'udp_flood', 'http_flood', 'slowloris');
+                    END IF;
+                END $$;
 
-                CREATE TABLE ai_ddos.datasets (
+                DO $$
+                BEGIN
+                    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'status') THEN
+                        CREATE TYPE ai_ddos.status AS ENUM ('pending', 'running', 'completed', 'failed');
+                    END IF;
+                END $$;
+
+                CREATE TABLE IF NOT EXISTS ai_ddos.datasets (
                     id SERIAL PRIMARY KEY,
                     name TEXT NOT NULL UNIQUE,
                     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
@@ -24,7 +36,7 @@ namespace AI_DDoS_Monitor.Database
                     tags TEXT[]
                 );
 
-                CREATE TABLE ai_ddos.experiments (
+                CREATE TABLE IF NOT EXISTS ai_ddos.experiments (
                     id SERIAL PRIMARY KEY,
                     name TEXT NOT NULL,
                     attack_type ai_ddos.attack_type NOT NULL,
@@ -32,7 +44,7 @@ namespace AI_DDoS_Monitor.Database
                     is_active BOOLEAN DEFAULT TRUE
                 );
 
-                CREATE TABLE ai_ddos.runs (
+                CREATE TABLE IF NOT EXISTS ai_ddos.runs (
                     id SERIAL PRIMARY KEY,
                     experiment_id INT NOT NULL REFERENCES ai_ddos.experiments(id) ON DELETE CASCADE,
                     dataset_id INT NOT NULL REFERENCES ai_ddos.datasets(id) ON DELETE RESTRICT,

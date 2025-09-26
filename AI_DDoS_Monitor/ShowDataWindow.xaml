@@ -25,5 +25,8 @@
                       GridLinesVisibility="Horizontal" 
                       HeadersVisibility="Column" />
         </TabItem>
+        <TabItem Header="Схемы">
+            <DataGrid Name="SchemasGrid" AutoGenerateColumns="True" />
+        </TabItem>
     </TabControl>
 </Window>

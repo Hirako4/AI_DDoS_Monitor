@@ -13,6 +13,7 @@ namespace AI_DDoS_Monitor.Windows
             LoadDatasets();
             LoadExperiments();
             LoadRuns();
+            LoadSchemas();
         }
 
         private void LoadDatasets()
@@ -82,6 +83,28 @@ namespace AI_DDoS_Monitor.Windows
             catch (System.Exception ex)
             {
                 MessageBox.Show($"Ошибка при загрузке запусков: {ex.Message}");
+            }
+        }
+
+        private void LoadSchemas()
+        {
+            try
+            {
+                using var conn = new NpgsqlConnection(DbConnection.ConnectionString);
+                conn.Open();
+
+                var sql = "SELECT schema_name FROM information_schema.schemata WHERE schema_name NOT IN ('information_schema', 'pg_catalog')";
+
+                using var cmd = new NpgsqlCommand(sql, conn);
+                using var adapter = new NpgsqlDataAdapter(cmd);
+                var dt = new DataTable();
+                adapter.Fill(dt);
+
+                SchemasGrid.ItemsSource = dt.DefaultView;
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show($"Ошибка при загрузке схем: {ex.Message}");
             }
         }
     }
